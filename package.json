@@ -10,7 +10,8 @@
         "express": "^4.17.1",
         "helmet": "^3.23.1",
         "jsforce": "^2.0.0-alpha.12",
-        "salesforce-jwt-bearer-token-flow": "^0.2.4"
+        "salesforce-jwt-bearer-token-flow": "^0.2.4",
+        "npm-run-all": "^4.1.5"
     },
     "devDependencies": {
         "@lwce/router": "^0.4.1",
@@ -18,7 +19,6 @@
         "husky": "^4.2.5",
         "lint-staged": "^10.2.11",
         "lwc-services": "^2.1.1",
-        "npm-run-all": "^4.1.5",
         "prettier": "^2.0.5"
     },
     "engines": {
