@@ -31,7 +31,7 @@ var path = require('path');
 */
 
 app.get('/api/v1/getsomething', function (req, res) {
-    res.send('here you go');
+    res.send('here you goo');
 });
 
 app.listen(PORT, () =>
