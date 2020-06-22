@@ -1,0 +1,31 @@
+<template>
+    <div class="slds-var-p-around_medium">
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-3">
+                <div class="slds-form-element">
+                    <label
+                        class="slds-form-element__label"
+                        for="form-element-01"
+                        >Enter Game Key</label
+                    >
+                    <div class="slds-form-element__control">
+                        <input
+                            type="text"
+                            id="form-element-01"
+                            onchange={handleGameKeyChange}
+                            class="slds-input"
+                        />
+                    </div>
+                </div>
+                <div class="slds-var-m-top_small slds-text-align_center">
+                    <button
+                        class="slds-button slds-button_brand slds-var-m-top_small"
+                        onclick={fetchGame}
+                    >
+                        Join Game
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

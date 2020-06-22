@@ -1,0 +1,21 @@
+<template>
+    <lwce-router>
+        Hey
+        <lwce-link href="/header">header</lwce-link>
+
+        <lwce-route path="/" exact>
+            hello
+        </lwce-route>
+
+        <lwce-route path="/header">
+            <ui-header></ui-header>
+        </lwce-route>
+
+        <lwce-route path="/game">
+            <ui-game-selector></ui-game-selector>
+        </lwce-route>
+        <lwce-route default>
+            <div>404 Not Found</div>
+        </lwce-route>
+    </lwce-router>
+</template>
