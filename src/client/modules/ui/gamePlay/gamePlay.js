@@ -16,7 +16,6 @@ export default class GamePlay extends LightningElement {
     timerDuration;
 
     get showBacklogItems() {
-        console.log(this.gameStatus);
         return this.gameStatus === 'In Progress' && this.playerId
             ? true
             : false;
@@ -55,7 +54,6 @@ export default class GamePlay extends LightningElement {
         // Handler for events of type 'eventType' only
         eventSource.addEventListener('NewPlayerResponse', (event) => {
             let data = JSON.parse(event.data);
-            console.log(data);
             let payload = data.sobject;
             if (payload.Game__c === this.gameId) {
                 let storedReplayId = sessionStorage.getItem(
@@ -76,7 +74,6 @@ export default class GamePlay extends LightningElement {
         // Handler for events of type 'eventType' only
         eventSource.addEventListener('GameStateChange', (event) => {
             let data = JSON.parse(event.data);
-            console.log(data);
             let payload = data.payload;
             if (payload.GameID__c === this.gameId) {
                 if (payload.Type__c === 'GamePhaseChange') {

@@ -4,7 +4,7 @@
             {error}
         </template>
 
-        <template if:false={error}>
+        <template if:true={playerResponses}>
             <div class="slds-grid slds-wrap">
                 <template for:each={playerResponses} for:item="playerResponse">
                     <div
@@ -14,21 +14,35 @@
                         <div class="slds-grid slds-grid_vertical-align-center">
                             <template if:false={playerResponse.response}>
                                 <div class="pokerCard default">
-                                    <svg xmlns="http://www.w3.org/2000/svg">
-                                        <use
-                                            xlink:href="/resources/icons/utility-sprite/symbols.svg#salesforce1"
-                                        ></use>
-                                    </svg>
+                                    <div
+                                        class="slds-icon-utility-salesforce1 slds-icon_container"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="slds-icon"
+                                        >
+                                            <use
+                                                xlink:href="/resources/icons/utility-sprite/svg/symbols.svg#salesforce1"
+                                            ></use>
+                                        </svg>
+                                    </div>
                                 </div>
                             </template>
                             <template if:true={playerResponse.response}>
                                 <template if:false={cardsFlipped}>
                                     <div class="pokerCard responseHidden">
-                                        <svg xmlns="http://www.w3.org/2000/svg">
-                                            <use
-                                                xlink:href="/resources/icons/utility-sprite/symbols.svg#salesforce1"
-                                            ></use>
-                                        </svg>
+                                        <div
+                                            class="slds-icon-utility-salesforce1 slds-icon_container"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="slds-icon"
+                                            >
+                                                <use
+                                                    xlink:href="/resources/icons/utility-sprite/svg/symbols.svg#salesforce1"
+                                                ></use>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </template>
                                 <template if:true={cardsFlipped}>

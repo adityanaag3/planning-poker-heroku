@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 import { LightningElement, track, api } from 'lwc';
 import { getData } from 'utils/fetchUtils';
 
@@ -12,18 +13,27 @@ export default class PlayerList extends LightningElement {
     @api estimateOptions;
 
     connectedCallback() {
-        this.getResponsesFromSalesforce();
+        this.getResponsesFromSalesforce(this.storyId);
     }
 
     @api
     updateVote(payload) {
-        for (let playerResponse in this.playerResponses) {
+        for (let index in this.playerResponses) {
+            let playerResponse = this.playerResponses[index];
             if (playerResponse.player.Id === payload.Player__c) {
                 playerResponse.response = payload.Response__c;
-                for (let estimateOption in this.estimateOptions) {
+                for (let estimateIndex in this.estimateOptions) {
+                    let estimateOption = this.estimateOptions[estimateIndex];
                     if (estimateOption.name === playerResponse.response) {
-                        playerResponse.pokerCard.colorHexCode =
-                            estimateOption.colorHexCode;
+                        if (playerResponse.pokerCard) {
+                            playerResponse.pokerCard.colorHexCode =
+                                estimateOption.colorHexCode;
+                        } else {
+                            playerResponse.pokerCard = {
+                                name: playerResponse.response,
+                                colorHexCode: estimateOption.colorHexCode
+                            };
+                        }
                     }
                 }
             }
@@ -31,10 +41,10 @@ export default class PlayerList extends LightningElement {
     }
 
     @api
-    getResponsesFromSalesforce() {
+    getResponsesFromSalesforce(storyId) {
         getData('/api/getPlayerResponses', {
             gameId: this.gameId,
-            storyId: this.storyId
+            storyId: storyId
         })
             .then((data) => {
                 if (data) {

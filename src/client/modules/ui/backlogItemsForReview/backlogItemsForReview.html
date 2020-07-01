@@ -4,18 +4,9 @@
         <utils-error-panel error={error}></utils-error-panel>
 
         <template if:false={currentItem}>
-            <div class="slds-text-align_center">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="315"
-                    height="142"
-                    class="slds-var-m-bottom_medium"
-                >
-                    <use
-                        xlink:href="/resources/noDataErrorIllustration.svg#noDataErrorIllustration"
-                    ></use>
-                </svg>
-                <br />
+            <div
+                class="slds-var-p-around_medium slds-var-m-top_x-large slds-text-heading_medium slds-text-align_center"
+            >
                 There are no unvoted items left. Enjoy.
             </div>
         </template>
@@ -93,7 +84,7 @@
                 </div>
                 <ui-player-responses
                     game-id={gameId}
-                    story-id={currentItem.itemId}
+                    story-id={storyId}
                     cards-flipped={cardsFlipped}
                     estimate-options={estimateOptions}
                 ></ui-player-responses>

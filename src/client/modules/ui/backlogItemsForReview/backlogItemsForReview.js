@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { LightningElement, api } from 'lwc';
 import { getData, postData } from 'utils/fetchUtils';
 
@@ -10,6 +11,10 @@ export default class BacklogItemsForReview extends LightningElement {
     error;
 
     cardsFlipped = false;
+
+    get storyId() {
+        return this.currentItem.itemId;
+    }
 
     //timer
     @api showTimer;
@@ -46,16 +51,34 @@ export default class BacklogItemsForReview extends LightningElement {
         }
     }
 
+    resetTimer() {
+        if (this.showTimer && this.template.querySelector('utils-timer')) {
+            this.template.querySelector('utils-timer').resetTimer();
+        }
+    }
+
     @api
     resetCards() {
-        this.template
-            .querySelector('ui-player-responses')
-            .getResponsesFromSalesforce();
+        this.template.querySelectorAll('.pokerCard').forEach((node) => {
+            node.classList.remove('selectedPokerCard');
+        });
+
+        if (this.template.querySelector('ui-player-responses')) {
+            this.template
+                .querySelector('ui-player-responses')
+                .getResponsesFromSalesforce(this.storyId);
+        }
+
+        this.resetTimer();
     }
 
     @api
     updateVote(payload) {
-        this.template.querySelector('ui-player-responses').updateVote(payload);
+        if (this.template.querySelector('ui-player-responses')) {
+            this.template
+                .querySelector('ui-player-responses')
+                .updateVote(payload);
+        }
     }
 
     handleSelectedOption(event) {
