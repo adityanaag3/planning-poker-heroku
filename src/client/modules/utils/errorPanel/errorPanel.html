@@ -1,0 +1,11 @@
+<template>
+    <template for:each={errorMessages} for:item="message">
+        <div
+            key={message}
+            class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"
+            role="alert"
+        >
+            {message}
+        </div>
+    </template>
+</template>

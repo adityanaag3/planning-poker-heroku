@@ -1,41 +1,126 @@
-// Simple Express server setup to serve for local testing/dev API server
 const compression = require('compression');
 const helmet = require('helmet');
 const express = require('express');
+const jwt = require('salesforce-jwt-bearer-token-flow');
+const jsforce = require('jsforce');
+const bodyParser = require('body-parser');
+const SSE = require('express-sse');
+const RestUtils = require('./restUtils.js');
+const path = require('path');
+
+require('dotenv').config();
 
 const app = express();
 app.use(helmet());
 app.use(compression());
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 const HOST = process.env.API_HOST || 'localhost';
 const PORT = process.env.API_PORT || 3002;
 
-/*const   fs = require('fs')
-    ,   privateKey = fs.readFileSync('src/server/private.pem').toString('utf8')
-    ,   jwt = require("salesforce-jwt-bearer-token-flow")
-;
+const DIST_DIR = './dist';
 
-let token = jwt.getToken({
-    iss: "3MVG9z6NAroNkeMk9xcC463M5am1T7EarK9xvIfGqg.SwwZ1ru_fc9w72O7Ooab9sDRmdBrrhWtELd0sG7Izu",
-    sub: "test-1mgadsbshvcv@example.com",
-    aud: "https://test.salesforce.com",
-    privateKey: privateKey
-},
-function(err, token){
-    console.log(err);
-    console.log(token);
+app.use(express.static(DIST_DIR));
+
+let conn;
+let sse = new SSE();
+let restUtilsObj;
+
+// Read Environment Variables
+const { SF_CONSUMER_KEY, SF_USERNAME, SF_LOGIN_URL } = process.env;
+let PRIVATE_KEY = process.env.PRIVATE_KEY;
+if (!PRIVATE_KEY) {
+    PRIVATE_KEY = require('fs').readFileSync('private.pem').toString('utf8');
 }
+if (!(SF_CONSUMER_KEY && SF_USERNAME && SF_LOGIN_URL && PRIVATE_KEY)) {
+    console.error(
+        'Cannot start app: missing mandatory configuration. Check your environment variables'
+    );
+    process.exit(-1);
+}
+
+// Authenticate to Salesforce using JWT Flow
+jwt.getToken(
+    {
+        iss: SF_CONSUMER_KEY,
+        sub: SF_USERNAME,
+        aud: SF_LOGIN_URL,
+        privateKey: PRIVATE_KEY
+    },
+    (err, tokenResponse) => {
+        if (tokenResponse) {
+            conn = new jsforce.Connection({
+                instanceUrl: tokenResponse.instance_url,
+                accessToken: tokenResponse.access_token
+            });
+
+            restUtilsObj = new RestUtils(conn);
+
+            //Subscribe to Streaming Events
+            conn.streaming
+                .topic('/event/Game_State_Change__e')
+                .subscribe(function (message) {
+                    sse.send(message, 'GameStateChange');
+                });
+
+            conn.streaming
+                .topic('PlayerResponses')
+                .subscribe(function (message) {
+                    sse.send(message, 'NewPlayerResponse');
+                });
+        } else if (err) {
+            console.error(err);
+            process.exit(-1);
+        }
+    }
 );
 
-var path = require('path');
-*/
+// Redirect all non /api/ endpoint requests to index.html
+app.get(/^(?!\/api).+/, (req, res) => {
+    res.sendFile(path.resolve(DIST_DIR + '/index.html'));
+});
 
-app.get('/api/v1/getsomething', function (req, res) {
-    res.send('here you goo');
+// Initialize Server Sent Events
+app.get('/api/gameUpdatesStream', sse.init);
+
+// Expose API endpoints for Salesforce Integration
+
+app.get('/api/validateGameKey', function (req, res) {
+    const { gameKey } = req.query;
+    const url = `/PlanningPokerServices/ValidateGameKey?gameKey=${gameKey}`;
+    restUtilsObj.doApexGet(url, req, res);
+});
+
+app.get('/api/verifyPlayer', function (req, res) {
+    const { gameId, playerName } = req.query;
+    const url = `/PlanningPokerServices/VerifyPlayer?gameId=${gameId}&playerName=${playerName}`;
+    restUtilsObj.doApexGet(url, req, res);
+});
+
+app.get('/api/getPlayerResponses', function (req, res) {
+    const { gameId, storyId } = req.query;
+    const url = `/PlanningPokerServices/GetAllPlayerResponses?gameId=${gameId}&storyId=${storyId}`;
+    restUtilsObj.doApexGet(url, req, res);
+});
+
+app.get('/api/getUnvotedItem', function (req, res) {
+    const { gameId } = req.query;
+    const url = `/PlanningPokerServices/GetCurrentUnvotedItem?gameId=${gameId}`;
+    restUtilsObj.doApexGet(url, req, res);
+});
+
+app.post('/api/insertPlayer', function (req, res) {
+    const url = `/PlanningPokerServices/InsertPlayer`;
+    restUtilsObj.doApexPost(url, req.body, res);
+});
+
+app.post('/api/captureVote', function (req, res) {
+    const url = `/PlanningPokerServices/CaptureVote`;
+    restUtilsObj.doApexPost(url, req.body, res);
 });
 
 app.listen(PORT, () =>
-    console.log(
-        `✅  API Server started: http://${HOST}:${PORT}/api/v1/endpoint`
-    )
+    console.log(`✅  API Server started: http://${HOST}:${PORT}`)
 );

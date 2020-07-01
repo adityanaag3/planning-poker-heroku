@@ -1,0 +1,30 @@
+<template>
+    <template if:false={gameValidationInProgress}>
+        <template if:true={gameValidated}>
+            <template if:false={showBacklogItems}>
+                <ui-player-entry
+                    game-id={gameId}
+                    onplayercreated={handlePlayerCreation}
+                ></ui-player-entry>
+            </template>
+            <template if:true={showBacklogItems}>
+                <ui-backlog-items-for-review
+                    game-id={gameId}
+                    player-id={playerId}
+                    show-timer={showTimer}
+                    timer-duration={timerDuration}
+                ></ui-backlog-items-for-review>
+            </template>
+        </template>
+        <template if:false={gameValidated}>
+            <div
+                class="slds-var-p-around_medium slds-var-m-top_x-large slds-text-heading_medium slds-text-align_center"
+            >
+                No Active Game found with this key.
+            </div>
+        </template>
+    </template>
+    <template if:true={gameValidationInProgress}>
+        <utils-spinner show-on-load="true"></utils-spinner>
+    </template>
+</template>

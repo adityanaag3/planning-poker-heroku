@@ -7,6 +7,9 @@ logs
 # Standard lib folder
 /lib
 
+#Config Files
+.env
+
 # Standard dist folder
 /dist
 
@@ -27,3 +30,7 @@ Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
+
+# Secure Files
+*.pem
+*.cert

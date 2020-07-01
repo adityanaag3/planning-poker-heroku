@@ -5,20 +5,22 @@
     "author": "adityanaag3",
     "bugs": "https://github.com/adityanaag3/my-app/issues",
     "dependencies": {
+        "@lwce/router": "^0.4.2",
+        "body-parser": "^1.19.0",
         "compression": "^1.7.4",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
+        "express-sse": "^0.5.3",
         "helmet": "^3.23.1",
-        "jsforce": "^2.0.0-alpha.12",
-        "salesforce-jwt-bearer-token-flow": "^0.2.4",
-        "npm-run-all": "^4.1.5"
+        "jsforce": "^1.9.3",
+        "salesforce-jwt-bearer-token-flow": "^0.2.4"
     },
     "devDependencies": {
-        "@lwce/router": "^0.4.1",
         "eslint": "^7.3.0",
         "husky": "^4.2.5",
         "lint-staged": "^10.2.11",
         "lwc-services": "^2.1.1",
+        "npm-run-all": "^4.1.5",
         "prettier": "^2.0.5"
     },
     "engines": {
@@ -69,7 +71,7 @@
         "lint": "eslint ./src/**/*.js",
         "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
         "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
-        "serve": "run-p serve:client serve:api",
+        "serve": "node src/server/api.js",
         "serve:api": "node src/server/api.js",
         "serve:client": "node scripts/server.js",
         "test:unit": "lwc-services test:unit",

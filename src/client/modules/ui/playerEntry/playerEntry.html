@@ -1,0 +1,48 @@
+<template>
+    <utils-spinner></utils-spinner>
+    <utils-toast></utils-toast>
+
+    <div class="slds-var-p-around_medium slds-var-m-top_x-large">
+        <template if:false={registrationSuccessful}>
+            <div class="slds-grid slds-grid_align-center">
+                <div class="slds-col slds-size_1-of-3">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="playerName"
+                            >Enter your name</label
+                        >
+                        <div class="slds-form-element__control">
+                            <input
+                                type="text"
+                                name="playerName"
+                                id="playerName"
+                                class="slds-input"
+                            />
+                        </div>
+                    </div>
+                    <div class="slds-var-m-top_small slds-text-align_center">
+                        <button
+                            class="slds-button slds-button_brand slds-var-m-top_small"
+                            onclick={addPlayer}
+                        >
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={registrationSuccessful}>
+            <div
+                class="slds-var-p-around_medium slds-var-m-top_x-large slds-text-heading_medium slds-text-align_center"
+            >
+                <div class="slds-show_inline waiting slds-var-m-bottom_large">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <div class="slds-var-m-top_medium">
+                    Please wait while others join the game
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

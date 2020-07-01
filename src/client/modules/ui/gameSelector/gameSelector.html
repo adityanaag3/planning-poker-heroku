@@ -1,18 +1,19 @@
 <template>
-    <div class="slds-var-p-around_medium">
+    <utils-spinner></utils-spinner>
+    <utils-toast></utils-toast>
+
+    <div class="slds-var-p-around_medium slds-var-m-top_x-large">
         <div class="slds-grid slds-grid_align-center">
             <div class="slds-col slds-size_1-of-3">
                 <div class="slds-form-element">
-                    <label
-                        class="slds-form-element__label"
-                        for="form-element-01"
+                    <label class="slds-form-element__label" for="gameKey"
                         >Enter Game Key</label
                     >
                     <div class="slds-form-element__control">
                         <input
                             type="text"
-                            id="form-element-01"
-                            onchange={handleGameKeyChange}
+                            name="gameKey"
+                            id="gameKey"
                             class="slds-input"
                         />
                     </div>
