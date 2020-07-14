@@ -31,6 +31,7 @@ let restUtilsObj;
 // Read Environment Variables
 const { SF_CONSUMER_KEY, SF_USERNAME, SF_LOGIN_URL } = process.env;
 let PRIVATE_KEY = process.env.PRIVATE_KEY;
+console.log(PRIVATE_KEY);
 if (!PRIVATE_KEY) {
     PRIVATE_KEY = require('fs').readFileSync('private.pem').toString('utf8');
 }
