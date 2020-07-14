@@ -111,6 +111,12 @@ app.get('/api/getUnvotedItem', function (req, res) {
     restUtilsObj.doApexGet(url, req, res);
 });
 
+app.get('/api/getTimerTimestamp', function (req, res) {
+    const { gameId } = req.query;
+    const url = `/PlanningPokerServices/GetTimerTimestamp?gameId=${gameId}`;
+    restUtilsObj.doApexGet(url, req, res);
+});
+
 app.post('/api/insertPlayer', function (req, res) {
     const url = `/PlanningPokerServices/InsertPlayer`;
     restUtilsObj.doApexPost(url, req.body, res);
