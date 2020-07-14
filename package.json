@@ -64,7 +64,7 @@
         ],
         "exec": "node ./src/server/api.js"
     },
-    "repository": "adityanaag3/my-app",
+    "repository": "adityanaag3/planning-poker-heroku",
     "scripts": {
         "build:production": "lwc-services build -m production",
         "build:development": "lwc-services build",
