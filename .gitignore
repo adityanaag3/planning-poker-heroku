@@ -10,9 +10,6 @@ logs
 #Config Files
 .env
 
-# Standard dist folder
-/dist
-
 # Tooling files
 node_modules
 

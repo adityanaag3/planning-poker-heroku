@@ -1,9 +1,9 @@
 {
-    "name": "my-app",
-    "description": "My amazing LWC app",
+    "name": "planning-poker-heroku",
+    "description": "Planning Poker App for Guest Players",
     "version": "0.0.1",
     "author": "adityanaag3",
-    "bugs": "https://github.com/adityanaag3/my-app/issues",
+    "bugs": "https://github.com/adityanaag3/planning-poker-heroku/issues",
     "dependencies": {
         "@lwce/router": "^0.4.2",
         "body-parser": "^1.19.0",
@@ -28,7 +28,7 @@
         "npm": ">=6.4.1",
         "yarn": ">=1.9.4"
     },
-    "homepage": "https://github.com/adityanaag3/my-app",
+    "homepage": "https://github.com/adityanaag3/planning-poker-heroku",
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"
@@ -66,7 +66,7 @@
     },
     "repository": "adityanaag3/my-app",
     "scripts": {
-        "build": "lwc-services build -m production",
+        "build:production": "lwc-services build -m production",
         "build:development": "lwc-services build",
         "lint": "eslint ./src/**/*.js",
         "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
