@@ -1,11 +1,63 @@
-# my-app
+<p align="center">
+  <img src="https://github.com/adityanaag3/planning-poker-heroku/raw/master/src/client/resources/logo.png" alt="Planning Poker Icon" width="150"/>
+</p>
 
-Here will be some information about the app.
+# Planning Poker Player App for Guests
 
-## How to start?
+1. [About](#about)
+1. [Prerequisites](#prerequisites)
+1. [Installation](#installation)
+1. [Building and contributing](#building-and-contributing)
 
-Start simple by running `yarn watch` (or `npm run watch`, if you set up the project with `npm`). This will start the project with a local development server.
+## About
 
-The source files are located in the [`src`](./src) folder. All web components are within the [`src/client/modules`](./src/modules) folder. The folder hierarchy also represents the naming structure of the web components. The entry file for the custom Express configuration can be found in the ['src/server'](./src/server) folder.
+Planning poker is a consensus-based, gamified technique for estimating user stories in Scrum. This app allows guests (player's without a Salesforce License) to participate in the Planning Poker game that's run using Salesforce.
 
-Find more information on the main repo on [GitHub](https://github.com/muenzpraeger/create-lwc-app).
+You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A free account lets you run the game with a small group of players. If you run the game with a larger group, consider upgrading to a [Hobby Dyno](https://www.heroku.com/dynos).
+
+## Prerequisites
+
+Make sure you've installed the host app on Salesforce by following the instructions [here](https://github.com/adityanaag3/planning-poker-salesforce#installation)
+
+## Installation
+
+<ol>
+    <li>Deploy to Heroku using the button below<br/>
+        <p>
+            <a href="https://heroku.com/deploy?template=https://github.com/adityanaag3/planning-poker-heroku/master">
+                <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+            </a>
+        </p>
+    </li>
+    <li>
+        Set the enviroment variables as follows
+        <table>
+        <tr>
+          <th>Variable</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>SF_CONSUMER_KEY</td>
+          <td>Consumer Key of the Connected App</td>
+        </tr>
+        <tr>
+          <td>SF_USERNAME</td>
+          <td>Username of the integration user who has been assigned the "Planning Poker Player" permission set.</td>
+        </tr>
+        <tr>
+          <td>SF_LOGIN_URL</td>
+          <td>The login URL of your Salesforce org:<br/>
+          <code>https://test.salesforce.com/</code> for scratch orgs and sandboxes<br/>
+          <code>https://login.salesforce.com/</code> for Developer Edition and production</td>
+        </tr>
+        <tr>
+          <td>PRIVATE_KEY</td>
+          <td>Contents of the private.pem file generated from the certificate creation step</td>
+        </tr>
+      </table>
+    </li>
+</ol>
+
+## Building and contributing
+
+If you want to build the project from sources and contribute, run `npm install` to install the project build tools.
