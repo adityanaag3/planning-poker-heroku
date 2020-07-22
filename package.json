@@ -5,7 +5,7 @@
     "author": "adityanaag3",
     "bugs": "https://github.com/adityanaag3/planning-poker-heroku/issues",
     "dependencies": {
-        "@lwce/router": "^0.4.2",
+        "@lwce/router": "^0.4.4",
         "body-parser": "^1.19.0",
         "compression": "^1.7.4",
         "dotenv": "^8.2.0",
@@ -31,7 +31,7 @@
     "homepage": "https://github.com/adityanaag3/planning-poker-heroku",
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "lint-staged && npm run build:production"
         }
     },
     "keywords": [
