@@ -4,6 +4,8 @@
 
 # Planning Poker Player App for Guests
 
+[![Github Workflow](https://github.com/adityanaag3/planning-poker-heroku/workflows/Formatting%20and%20Tests/badge.svg?branch=master)](https://github.com/adityanaag3/planning-poker-heroku/actions?query=workflow%3A%22Formatting+and+Tests%22) [![codecov](https://codecov.io/gh/adityanaag3/planning-poker-heroku/branch/master/graph/badge.svg)](https://codecov.io/gh/adityanaag3/planning-poker-heroku)
+
 1. [About](#about)
 1. [Prerequisites](#prerequisites)
 1. [Installation](#installation)
