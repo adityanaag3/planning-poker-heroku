@@ -7,6 +7,9 @@ logs
 # Standard lib folder
 /lib
 
+# Standard dist folder
+/dist
+
 #Config Files
 .env
 
