@@ -19,7 +19,7 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A f
 
 ## Prerequisites
 
-Make sure you've installed the host app on Salesforce by following the instructions [here](https://github.com/adityanaag3/planning-poker-salesforce#installation)
+Make sure you've installed the host app on Salesforce by following the instructions [here](https://github.com/adityanaag3/planning-poker-salesforce#installation).
 
 ## Installation
 
@@ -40,11 +40,11 @@ Make sure you've installed the host app on Salesforce by following the instructi
         </tr>
         <tr>
           <td>SF_CONSUMER_KEY</td>
-          <td>Consumer Key of the Connected App</td>
+          <td>Consumer Key of the Salesforce Connected App</td>
         </tr>
         <tr>
           <td>SF_USERNAME</td>
-          <td>Username of the integration user who has been assigned the "Planning Poker Player" permission set.</td>
+          <td>Username of the integration user who has been assigned the <b>Planning Poker Player</b> permission set.</td>
         </tr>
         <tr>
           <td>SF_LOGIN_URL</td>
@@ -58,7 +58,7 @@ Make sure you've installed the host app on Salesforce by following the instructi
         </tr>
         <tr>
           <td>SF_NAMESPACE</td>
-          <td>`planningpokersf` if you have installed the host app using the packages listed [here](https://github.com/adityanaag3/planning-poker-salesforce#using-a-package). Else, use the namespace from the host app's [sfdx-project.json](https://github.com/adityanaag3/planning-poker-salesforce/blob/master/sfdx-project.json) file </td>
+          <td><code>planningpokersf</code> if you have installed the host app using the packages listed <a href="https://github.com/adityanaag3/planning-poker-salesforce#using-a-package" target=""_blank>here</a>. Else, use the namespace from the host app's <a href="https://github.com/adityanaag3/planning-poker-salesforce/blob/master/sfdx-project.json" target="_blank">sfdx-project.json</a> file.</td>
         </tr>
       </table>
     </li>
