@@ -58,7 +58,7 @@ Make sure you've installed the host app on Salesforce by following the instructi
         </tr>
         <tr>
           <td>SF_NAMESPACE</td>
-          <td><code>planningpokersf</code> if you have installed the host app using the packages listed <a href="https://github.com/adityanaag3/planning-poker-salesforce#using-a-package" target=""_blank>here</a>. Else, use the namespace from the host app's <a href="https://github.com/adityanaag3/planning-poker-salesforce/blob/master/sfdx-project.json" target="_blank">sfdx-project.json</a> file.</td>
+          <td>Use <code>planningpokersf</code> if you have installed the host app using the packages listed <a href="https://github.com/adityanaag3/planning-poker-salesforce#using-a-package" target=""_blank>here</a>. Else, use the namespace from the host app's <a href="https://github.com/adityanaag3/planning-poker-salesforce/blob/master/sfdx-project.json" target="_blank">sfdx-project.json</a> file.</td>
         </tr>
       </table>
     </li>
