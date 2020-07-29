@@ -56,6 +56,10 @@ Make sure you've installed the host app on Salesforce by following the instructi
           <td>PRIVATE_KEY</td>
           <td>Contents of the private.pem file generated from the certificate creation step</td>
         </tr>
+        <tr>
+          <td>SF_NAMESPACE</td>
+          <td>`planningpokersf` if you have installed the host app using the packages listed [here](https://github.com/adityanaag3/planning-poker-salesforce#using-a-package). Else, use the namespace from the host app's [sfdx-project.json](https://github.com/adityanaag3/planning-poker-salesforce/blob/master/sfdx-project.json) file </td>
+        </tr>
       </table>
     </li>
 </ol>

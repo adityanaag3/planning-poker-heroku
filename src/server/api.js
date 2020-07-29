@@ -34,6 +34,12 @@ let PRIVATE_KEY = process.env.PRIVATE_KEY;
 if (!PRIVATE_KEY) {
     PRIVATE_KEY = require('fs').readFileSync('private.pem').toString('utf8');
 }
+
+let SF_NAMESPACE = process.env.SF_NAMESPACE;
+if (!SF_NAMESPACE) {
+    SF_NAMESPACE = '';
+}
+
 if (!(SF_CONSUMER_KEY && SF_USERNAME && SF_LOGIN_URL && PRIVATE_KEY)) {
     console.error(
         'Cannot start app: missing mandatory configuration. Check your environment variables'
@@ -60,7 +66,7 @@ jwt.getToken(
 
             //Subscribe to Streaming Events
             conn.streaming
-                .topic('/event/Game_State_Change__e')
+                .topic(`/event/${SF_NAMESPACE}__Game_State_Change__e`)
                 .subscribe(function (message) {
                     sse.send(message, 'GameStateChange');
                 });
@@ -85,45 +91,54 @@ app.get(/^(?!\/api).+/, (req, res) => {
 // Initialize Server Sent Events
 app.get('/api/gameUpdatesStream', sse.init);
 
+// Endpoint to get stored namespace
+app.get('/api/getNamespace', function (req, res) {
+    let underscoredNamespace = SF_NAMESPACE;
+    if (underscoredNamespace !== '') {
+        underscoredNamespace = underscoredNamespace + '__';
+    }
+    res.json(underscoredNamespace);
+});
+
 // Expose API endpoints for Salesforce Integration
 
 app.get('/api/validateGameKey', function (req, res) {
     const { gameKey } = req.query;
-    const url = `/PlanningPokerServices/ValidateGameKey?gameKey=${gameKey}`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/ValidateGameKey?gameKey=${gameKey}`;
     restUtilsObj.doApexGet(url, req, res);
 });
 
 app.get('/api/verifyPlayer', function (req, res) {
     const { gameId, playerName } = req.query;
-    const url = `/PlanningPokerServices/VerifyPlayer?gameId=${gameId}&playerName=${playerName}`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/VerifyPlayer?gameId=${gameId}&playerName=${playerName}`;
     restUtilsObj.doApexGet(url, req, res);
 });
 
 app.get('/api/getPlayerResponses', function (req, res) {
     const { gameId, storyId } = req.query;
-    const url = `/PlanningPokerServices/GetAllPlayerResponses?gameId=${gameId}&storyId=${storyId}`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/GetAllPlayerResponses?gameId=${gameId}&storyId=${storyId}`;
     restUtilsObj.doApexGet(url, req, res);
 });
 
 app.get('/api/getUnvotedItem', function (req, res) {
     const { gameId } = req.query;
-    const url = `/PlanningPokerServices/GetCurrentUnvotedItem?gameId=${gameId}`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/GetCurrentUnvotedItem?gameId=${gameId}`;
     restUtilsObj.doApexGet(url, req, res);
 });
 
 app.get('/api/getTimerTimestamp', function (req, res) {
     const { gameId } = req.query;
-    const url = `/PlanningPokerServices/GetTimerTimestamp?gameId=${gameId}`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/GetTimerTimestamp?gameId=${gameId}`;
     restUtilsObj.doApexGet(url, req, res);
 });
 
 app.post('/api/insertPlayer', function (req, res) {
-    const url = `/PlanningPokerServices/InsertPlayer`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/InsertPlayer`;
     restUtilsObj.doApexPost(url, req.body, res);
 });
 
 app.post('/api/captureVote', function (req, res) {
-    const url = `/PlanningPokerServices/CaptureVote`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/CaptureVote`;
     restUtilsObj.doApexPost(url, req.body, res);
 });
 

@@ -1,5 +1,7 @@
-import { LightningElement } from 'lwc';
+/* eslint-disable @lwc/lwc/no-unknown-wire-adapters */
+import { LightningElement, wire } from 'lwc';
 import { getData } from 'utils/fetchUtils';
+import { routeParams } from '@lwce/router';
 
 const eventSource = new EventSource('/api/gameUpdatesStream');
 
@@ -12,8 +14,12 @@ export default class GamePlay extends LightningElement {
     gameStatus;
     playerId;
 
+    namespace;
+
     showTimer = false;
     timerDuration;
+
+    @wire(routeParams) params;
 
     get showBacklogItems() {
         return this.gameStatus === 'In Progress' && this.playerId
@@ -21,9 +27,7 @@ export default class GamePlay extends LightningElement {
             : false;
     }
 
-    connectedCallback() {
-        // eslint-disable-next-line no-restricted-globals
-        this.gameKey = location.pathname.replace('/play/', '');
+    validateGameKey() {
         getData('/api/validateGameKey', { gameKey: this.gameKey })
             .then((data) => {
                 this.template.querySelector('utils-spinner').hide();
@@ -31,9 +35,10 @@ export default class GamePlay extends LightningElement {
                 if (data) {
                     this.gameValidated = true;
                     this.gameId = data.Id;
-                    this.gameStatus = data.Phase__c;
-                    this.showTimer = data.Show_Timer__c;
-                    this.timerDuration = data.Timer_Duration__c;
+                    this.gameStatus = data[`${this.namespace}Phase__c`];
+                    this.showTimer = data[`${this.namespace}Show_Timer__c`];
+                    this.timerDuration =
+                        data[`${this.namespace}Timer_Duration__c`];
                     let playerId = sessionStorage.getItem(
                         'playerId_' + this.gameId
                     );
@@ -50,12 +55,14 @@ export default class GamePlay extends LightningElement {
                 this.gameValidationInProgress = false;
                 console.error(error);
             });
+    }
 
+    initEventHandlers() {
         // Handler for events of type 'eventType' only
         eventSource.addEventListener('NewPlayerResponse', (event) => {
             let data = JSON.parse(event.data);
             let payload = data.sobject;
-            if (payload.Game__c === this.gameId) {
+            if (payload[`${this.namespace}Game__c`] === this.gameId) {
                 let storedReplayId = sessionStorage.getItem(
                     'replayId_NewPlayerResponse_' + this.gameId
                 );
@@ -75,66 +82,94 @@ export default class GamePlay extends LightningElement {
         eventSource.addEventListener('GameStateChange', (event) => {
             let data = JSON.parse(event.data);
             let payload = data.payload;
-            if (payload.GameID__c === this.gameId) {
-                if (payload.Type__c === 'GamePhaseChange') {
+            if (payload[`${this.namespace}GameID__c`] === this.gameId) {
+                if (payload[`${this.namespace}Type__c`] === 'GamePhaseChange') {
                     let storedReplayId = sessionStorage.getItem(
-                        'replayId_' + payload.Type__c + '_' + this.gameId
+                        'replayId_' +
+                            payload[`${this.namespace}Type__c`] +
+                            '_' +
+                            this.gameId
                     );
                     if (
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
                         sessionStorage.setItem(
-                            'replayId_' + payload.Type__c + '_' + this.gameId,
+                            'replayId_' +
+                                payload[`${this.namespace}Type__c`] +
+                                '_' +
+                                this.gameId,
                             data.event.replayId
                         );
-                        this.gameStatus = payload.Data__c;
+                        this.gameStatus = payload[`${this.namespace}Data__c`];
                         if (this.gameStatus === 'Completed') {
                             window.location.href = '/';
                         }
                     }
-                } else if (payload.Type__c === 'StoryChange') {
+                } else if (
+                    payload[`${this.namespace}Type__c`] === 'StoryChange'
+                ) {
                     let storedReplayId = sessionStorage.getItem(
-                        'replayId_' + payload.Type__c + '_' + this.gameId
+                        'replayId_' +
+                            payload[`${this.namespace}Type__c`] +
+                            '_' +
+                            this.gameId
                     );
                     if (
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
                         sessionStorage.setItem(
-                            'replayId_' + payload.Type__c + '_' + this.gameId,
+                            'replayId_' +
+                                payload[`${this.namespace}Type__c`] +
+                                '_' +
+                                this.gameId,
                             data.event.replayId
                         );
                         this.template
                             .querySelector('ui-backlog-items-for-review')
                             .getUnvotedItem();
                     }
-                } else if (payload.Type__c === 'CardFlip') {
+                } else if (payload[`${this.namespace}Type__c`] === 'CardFlip') {
                     let storedReplayId = sessionStorage.getItem(
-                        'replayId_' + payload.Type__c + '_' + this.gameId
+                        'replayId_' +
+                            payload[`${this.namespace}Type__c`] +
+                            '_' +
+                            this.gameId
                     );
                     if (
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
                         sessionStorage.setItem(
-                            'replayId_' + payload.Type__c + '_' + this.gameId,
+                            'replayId_' +
+                                payload[`${this.namespace}Type__c`] +
+                                '_' +
+                                this.gameId,
                             data.event.replayId
                         );
                         this.template
                             .querySelector('ui-backlog-items-for-review')
-                            .flipCards(payload.Data__c);
+                            .flipCards(payload[`${this.namespace}Data__c`]);
                     }
-                } else if (payload.Type__c === 'ResetCards') {
+                } else if (
+                    payload[`${this.namespace}Type__c`] === 'ResetCards'
+                ) {
                     let storedReplayId = sessionStorage.getItem(
-                        'replayId_' + payload.Type__c + '_' + this.gameId
+                        'replayId_' +
+                            payload[`${this.namespace}Type__c`] +
+                            '_' +
+                            this.gameId
                     );
                     if (
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
                         sessionStorage.setItem(
-                            'replayId_' + payload.Type__c + '_' + this.gameId,
+                            'replayId_' +
+                                payload[`${this.namespace}Type__c`] +
+                                '_' +
+                                this.gameId,
                             data.event.replayId
                         );
                         this.template
@@ -143,6 +178,16 @@ export default class GamePlay extends LightningElement {
                     }
                 }
             }
+        });
+    }
+
+    connectedCallback() {
+        this.gameKey = this.params.gameKey;
+        // location.pathname.replace('/play/', '');
+        getData('/api/getNamespace').then((data) => {
+            this.namespace = data;
+            this.validateGameKey();
+            this.initEventHandlers();
         });
     }
 

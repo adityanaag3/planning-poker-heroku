@@ -5,7 +5,6 @@ export default class ErrorPanel extends LightningElement {
     @api error;
 
     get errorMessages() {
-        console.log(getErrorMessage(this.error));
         return getErrorMessage(this.error);
     }
 }

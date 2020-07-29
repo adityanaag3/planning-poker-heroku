@@ -11,6 +11,7 @@ export default class PlayerList extends LightningElement {
     @api storyId;
     @api cardsFlipped;
     @api estimateOptions;
+    @api namespace;
 
     connectedCallback() {
         this.getResponsesFromSalesforce(this.storyId);
@@ -20,8 +21,12 @@ export default class PlayerList extends LightningElement {
     updateVote(payload) {
         for (let index in this.playerResponses) {
             let playerResponse = this.playerResponses[index];
-            if (playerResponse.player.Id === payload.Player__c) {
-                playerResponse.response = payload.Response__c;
+            if (
+                playerResponse.player.Id ===
+                payload[`${this.namespace}Player__c`]
+            ) {
+                playerResponse.response =
+                    payload[`${this.namespace}Response__c`];
                 for (let estimateIndex in this.estimateOptions) {
                     let estimateOption = this.estimateOptions[estimateIndex];
                     if (estimateOption.name === playerResponse.response) {

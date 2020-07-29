@@ -5,6 +5,7 @@ import { getData, postData } from 'utils/fetchUtils';
 export default class BacklogItemsForReview extends LightningElement {
     @api gameId;
     @api playerId;
+    @api namespace;
 
     estimateOptions;
     currentItem;

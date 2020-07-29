@@ -8,7 +8,12 @@
             <ui-game-play onupdateplayername={handlePlayerName}></ui-game-play>
         </lwce-route>
         <lwce-route default>
-            The URL you are looking for is not found.
+            <div
+                class="slds-var-p-around_medium slds-var-m-top_x-large slds-text-heading_medium slds-text-align_center"
+            >
+                The URL you are looking for does not exist.
+            </div>
         </lwce-route>
     </lwce-router>
+    <ui-footer></ui-footer>
 </template>
