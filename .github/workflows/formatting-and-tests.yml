@@ -44,9 +44,8 @@ jobs:
             # LWC unit tests
             - name: 'LWC unit tests'
               run: npm run test:unit:coverage
-
             # Upload LWC code coverage data
-            - name: 'Upload code coverage for LWC to Codecov.io'
-              uses: codecov/codecov-action@v1
-              with:
-                  flags: LWC
+            #- name: 'Upload code coverage for LWC to Codecov.io'
+            #  uses: codecov/codecov-action@v1
+            #  with:
+            #      flags: LWC
