@@ -3,7 +3,7 @@ import { LightningElement, wire } from 'lwc';
 import { getData } from 'utils/fetchUtils';
 import { routeParams } from '@lwce/router';
 
-const eventSource = new EventSource('/api/gameUpdatesStream');
+let eventSource;
 
 export default class GamePlay extends LightningElement {
     gameValidationInProgress = true;
@@ -58,6 +58,14 @@ export default class GamePlay extends LightningElement {
     }
 
     initEventHandlers() {
+        eventSource = new EventSource('/api/gameUpdatesStream');
+
+        eventSource.onerror = () => {
+            if (eventSource.readyState === EventSource.CLOSED) {
+                this.initEventHandlers();
+            }
+        };
+
         // Handler for events of type 'eventType' only
         eventSource.addEventListener('NewPlayerResponse', (event) => {
             let data = JSON.parse(event.data);
