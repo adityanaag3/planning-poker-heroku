@@ -5,7 +5,7 @@ async function postData(url = '', data = {}) {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json;charset=UTF-8'
         },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
@@ -27,7 +27,12 @@ async function getData(url = '', params = {}) {
         url = url + '?' + paramString;
     }
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    });
+
     if (!response.ok) {
         throw Error(response.statusText);
     }
