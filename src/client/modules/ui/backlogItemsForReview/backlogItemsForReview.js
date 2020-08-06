@@ -60,6 +60,8 @@ export default class BacklogItemsForReview extends LightningElement {
 
     @api
     resetCards() {
+        this.cardsFlipped = false;
+
         this.template.querySelectorAll('.pokerCard').forEach((node) => {
             node.classList.remove('selectedPokerCard');
         });
