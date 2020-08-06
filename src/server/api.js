@@ -91,6 +91,11 @@ app.get(/^(?!\/api).+/, (req, res) => {
 // Initialize Server Sent Events
 app.get('/api/gameUpdatesStream', sse.init);
 
+// Keep SSE Connection Alive
+const HEARTBEAT_INTERVAL = process.env.HEARTBEAT_INTERVAL || 30 * 1000; // 30 seconds
+const heartBeat = () => sse.send(':ping');
+setInterval(heartBeat, HEARTBEAT_INTERVAL);
+
 // Endpoint to get stored namespace
 app.get('/api/getNamespace', function (req, res) {
     let underscoredNamespace = SF_NAMESPACE;
