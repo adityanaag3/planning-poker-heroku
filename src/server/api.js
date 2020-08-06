@@ -115,7 +115,9 @@ app.get('/api/validateGameKey', function (req, res) {
 
 app.get('/api/verifyPlayer', function (req, res) {
     const { gameId, playerName } = req.query;
-    const url = `/${SF_NAMESPACE}/PlanningPokerServices/VerifyPlayer?gameId=${gameId}&playerName=${playerName}`;
+    const url = `/${SF_NAMESPACE}/PlanningPokerServices/VerifyPlayer?gameId=${gameId}&playerName=${encodeURI(
+        playerName
+    )}`;
     restUtilsObj.doApexGet(url, req, res);
 });
 
