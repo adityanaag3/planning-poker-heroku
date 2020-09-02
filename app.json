@@ -15,7 +15,7 @@
     "env": {
         "SF_CONSUMER_KEY": {
             "description": "Consumer Key of the Salesforce Connected App",
-            "value": "https://test.salesforce.com/",
+            "value": "",
             "required": true
         },
         "SF_USERNAME": {
@@ -25,16 +25,16 @@
         },
         "SF_LOGIN_URL": {
             "description": "Salesforce authentication domain",
-            "value": "https://test.salesforce.com/",
+            "value": "",
             "required": true
         },
         "SF_NAMESPACE": {
-            "description": "Namespace of the Planning Poker Host App package. Leave the default value if you have installed the host app using the official package from the Readme file",
+            "description": "Namespace of the Planning Poker Host App's package. Leave the default value if you have installed the host app using the package from the Readme file",
             "value": "planningpokersf",
             "required": true
         },
         "PRIVATE_KEY": {
-            "description": "Contents of the private.pem file generated from the certificate creation step",
+            "description": "Contents of the private.pem file generated from the certificate creation step in the Readme file of the Host App's repository",
             "value": ""
         }
     },
