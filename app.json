@@ -29,7 +29,7 @@
             "required": true
         },
         "SF_NAMESPACE": {
-            "description": "Namespace of the Planning Poker Host App's package. Leave the default value if you have installed the host app using the package from the Readme file",
+            "description": "Namespace of the Planning Poker Host App. Leave the default value if you have installed the host app using the package from the Readme file",
             "value": "planningpokersf",
             "required": true
         },
