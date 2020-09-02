@@ -29,12 +29,12 @@
             "required": true
         },
         "SF_NAMESPACE": {
-            "description": "Namespace of the Planning Poker Host App. Leave the default value if you have installed the host app using the package from the Readme file",
+            "description": "Namespace of the Planning Poker Salesforce App. Leave the default value if you have installed the Salesforce app using the package from the Readme file",
             "value": "planningpokersf",
             "required": true
         },
         "PRIVATE_KEY": {
-            "description": "Contents of the private.pem file generated from the certificate creation step in the Readme file of the Host App's repository",
+            "description": "Contents of the private.pem file corresponding to the certificate used in the Connected App",
             "value": ""
         }
     },
