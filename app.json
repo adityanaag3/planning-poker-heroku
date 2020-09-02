@@ -1,0 +1,42 @@
+{
+    "name": "Planning Poker Guest App",
+    "description": "This app allows guests (players without a Salesforce License) to participate in the Planning Poker game that is run using Salesforce.",
+    "repository": "https://github.com/adityanaag3/planning-poker-heroku",
+    "logo": "https://raw.githubusercontent.com/adityanaag3/planning-poker-heroku/master/src/client/resources/logo.png",
+    "keywords": [
+        "heroku",
+        "salesforce",
+        "web-components",
+        "open source",
+        "planning poker",
+        "lwc",
+        "lwc oss"
+    ],
+    "env": {
+        "SF_CONSUMER_KEY": {
+            "description": "Consumer Key of the Salesforce Connected App",
+            "value": "https://test.salesforce.com/",
+            "required": true
+        },
+        "SF_USERNAME": {
+            "description": "Username of the integration user who has been assigned the Planning Poker Player permission set",
+            "value": "",
+            "required": true
+        },
+        "SF_LOGIN_URL": {
+            "description": "Salesforce authentication domain",
+            "value": "https://test.salesforce.com/",
+            "required": true
+        },
+        "SF_NAMESPACE": {
+            "description": "Namespace of the Planning Poker Host App package. Leave the default value if you have installed the host app using the official package from the Readme file",
+            "value": "planningpokersf",
+            "required": true
+        },
+        "PRIVATE_KEY": {
+            "description": "Contents of the private.pem file generated from the certificate creation step",
+            "value": ""
+        }
+    },
+    "success_url": "/"
+}
