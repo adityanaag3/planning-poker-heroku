@@ -39,12 +39,12 @@ export default class GamePlay extends LightningElement {
                     this.showTimer = data[`${this.namespace}Show_Timer__c`];
                     this.timerDuration =
                         data[`${this.namespace}Timer_Duration__c`];
-                    let playerId = sessionStorage.getItem(
+                    let playerId = localStorage.getItem(
                         'playerId_' + this.gameId
                     );
                     if (playerId) {
                         this.playerId = playerId;
-                        let playerName = sessionStorage.getItem(
+                        let playerName = localStorage.getItem(
                             'playerName_' + this.gameId
                         );
                         this.sendPlayerNameToHeader(playerName);
@@ -71,11 +71,11 @@ export default class GamePlay extends LightningElement {
             let data = JSON.parse(event.data);
             let payload = data.sobject;
             if (payload[`${this.namespace}Game__c`] === this.gameId) {
-                let storedReplayId = sessionStorage.getItem(
+                let storedReplayId = localStorage.getItem(
                     'replayId_NewPlayerResponse_' + this.gameId
                 );
                 if (!storedReplayId || data.event.replayId > storedReplayId) {
-                    sessionStorage.setItem(
+                    localStorage.setItem(
                         'replayId_NewPlayerResponse_' + this.gameId,
                         data.event.replayId
                     );
@@ -92,7 +92,7 @@ export default class GamePlay extends LightningElement {
             let payload = data.payload;
             if (payload[`${this.namespace}GameID__c`] === this.gameId) {
                 if (payload[`${this.namespace}Type__c`] === 'GamePhaseChange') {
-                    let storedReplayId = sessionStorage.getItem(
+                    let storedReplayId = localStorage.getItem(
                         'replayId_' +
                             payload[`${this.namespace}Type__c`] +
                             '_' +
@@ -102,7 +102,7 @@ export default class GamePlay extends LightningElement {
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
-                        sessionStorage.setItem(
+                        localStorage.setItem(
                             'replayId_' +
                                 payload[`${this.namespace}Type__c`] +
                                 '_' +
@@ -117,7 +117,7 @@ export default class GamePlay extends LightningElement {
                 } else if (
                     payload[`${this.namespace}Type__c`] === 'StoryChange'
                 ) {
-                    let storedReplayId = sessionStorage.getItem(
+                    let storedReplayId = localStorage.getItem(
                         'replayId_' +
                             payload[`${this.namespace}Type__c`] +
                             '_' +
@@ -127,7 +127,7 @@ export default class GamePlay extends LightningElement {
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
-                        sessionStorage.setItem(
+                        localStorage.setItem(
                             'replayId_' +
                                 payload[`${this.namespace}Type__c`] +
                                 '_' +
@@ -139,7 +139,7 @@ export default class GamePlay extends LightningElement {
                             .getUnvotedItem();
                     }
                 } else if (payload[`${this.namespace}Type__c`] === 'CardFlip') {
-                    let storedReplayId = sessionStorage.getItem(
+                    let storedReplayId = localStorage.getItem(
                         'replayId_' +
                             payload[`${this.namespace}Type__c`] +
                             '_' +
@@ -149,7 +149,7 @@ export default class GamePlay extends LightningElement {
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
-                        sessionStorage.setItem(
+                        localStorage.setItem(
                             'replayId_' +
                                 payload[`${this.namespace}Type__c`] +
                                 '_' +
@@ -163,7 +163,7 @@ export default class GamePlay extends LightningElement {
                 } else if (
                     payload[`${this.namespace}Type__c`] === 'ResetCards'
                 ) {
-                    let storedReplayId = sessionStorage.getItem(
+                    let storedReplayId = localStorage.getItem(
                         'replayId_' +
                             payload[`${this.namespace}Type__c`] +
                             '_' +
@@ -173,7 +173,7 @@ export default class GamePlay extends LightningElement {
                         !storedReplayId ||
                         data.event.replayId > storedReplayId
                     ) {
-                        sessionStorage.setItem(
+                        localStorage.setItem(
                             'replayId_' +
                                 payload[`${this.namespace}Type__c`] +
                                 '_' +

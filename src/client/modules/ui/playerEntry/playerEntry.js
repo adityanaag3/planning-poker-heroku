@@ -6,7 +6,7 @@ export default class PlayerEntry extends LightningElement {
     registrationSuccessful = false;
 
     connectedCallback() {
-        let doesPlayerExist = sessionStorage.getItem('playerId_' + this.gameId);
+        let doesPlayerExist = localStorage.getItem('playerId_' + this.gameId);
         if (doesPlayerExist) {
             this.registrationSuccessful = true;
         }
@@ -28,11 +28,11 @@ export default class PlayerEntry extends LightningElement {
                                     .querySelector('utils-spinner')
                                     .hide();
                                 this.registrationSuccessful = true;
-                                sessionStorage.setItem(
+                                localStorage.setItem(
                                     'playerId_' + this.gameId,
                                     playerData
                                 );
-                                sessionStorage.setItem(
+                                localStorage.setItem(
                                     'playerName_' + this.gameId,
                                     playerName
                                 );
