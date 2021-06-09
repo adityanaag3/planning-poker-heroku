@@ -1,8 +1,6 @@
 <template>
     <div class="playerList">
-        <template if:true={error}>
-            {error}
-        </template>
+        <template if:true={error}> {error} </template>
 
         <template if:true={playerResponses}>
             <div class="slds-grid slds-wrap">
@@ -15,7 +13,10 @@
                             <template if:false={playerResponse.response}>
                                 <div class="pokerCard default">
                                     <div
-                                        class="slds-icon-utility-salesforce1 slds-icon_container"
+                                        class="
+                                            slds-icon-utility-salesforce1
+                                            slds-icon_container
+                                        "
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +33,10 @@
                                 <template if:false={cardsFlipped}>
                                     <div class="pokerCard responseHidden">
                                         <div
-                                            class="slds-icon-utility-salesforce1 slds-icon_container"
+                                            class="
+                                                slds-icon-utility-salesforce1
+                                                slds-icon_container
+                                            "
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
